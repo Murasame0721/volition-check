@@ -1,25 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
+import MultipleControl from "./MultipleControl/MultipleControl";
+
+let questions = [
+  "a very long question: fghujezhgijdsghfouqwdhfajoswcnipqodwbgbourwbdiousnapknx",
+  "a very long question2: fghujezhgijdsghfouqwdhfajoswcnipqodwbgbourwbdiousnapknx"
+]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return (<MultipleControl questions={questions}/>);
 }
 
 export default App;

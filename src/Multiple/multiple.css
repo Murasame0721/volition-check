@@ -1,0 +1,31 @@
+.multiple {
+    background-color: #f6f6f6;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 500px;
+    box-sizing: border-box;
+    height: 400px;
+}
+
+.multiple .question {
+    max-width: 80%;
+    word-wrap: anywhere;
+    text-align: center;
+    font-size: large;
+    margin: 2em auto 2em;
+}
+
+.multiple .describe {
+    font-size: small;
+}
+
+.selector {
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    display: inline-block;
+    position: relative;
+}
