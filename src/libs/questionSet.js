@@ -19,7 +19,7 @@ export default class questionsSet {
             for (const question of this.questions) {
                 mark += question.mark[dimensionIndex];
             }
-            this.conventedMark[dimensionIndex] = (mark - this.conventOffset[dimensionIndex]) * this.conventFactor[dimensionIndex];
+            this.conventedMark[dimensionIndex] = (mark + this.conventOffset[dimensionIndex]) * this.conventFactor[dimensionIndex];
         }
         return this.conventedMark
     }

@@ -4,7 +4,6 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 10px;
     max-width: 500px;
@@ -16,7 +15,7 @@
     margin: 1.5em;
 }
 
-.multipleController .questionPointer {
+.multipleController .littleTips {
     margin: 0;
     line-height: 2em;
     font-size: small;

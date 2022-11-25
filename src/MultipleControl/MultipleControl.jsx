@@ -1,12 +1,24 @@
 import React from "react";
-import Multiple from "../Multiple/Multiple";
 import Button from "@mui/material/Button";
 import './MultipleControl.css';
+import HomePageOfQuestions from "../Multiple/HomePageOfQuestions";
+import Multiple from "../Multiple/Multiple";
+import EndPageOfQuestions from "../Multiple/EndPageOfQuestions";
+
+const haveNotStarted = -1;
+let usernameNode = null;
+let username = "";
+
+const getUsername = (inputNode) => {
+    usernameNode = inputNode;
+}
 
 export default class MultipleControl extends React.Component {
+    reportCard = null;
+
     constructor(props) {
         super(props);
-        this.currentAnswer = 0;
+        this.currentAnswer = 0; // waiting for achieve
         this.questionSet = props.questionSet;
         this.server = props.server;
     }
@@ -28,9 +40,10 @@ export default class MultipleControl extends React.Component {
         return "请放心，您的答案不会被记录到服务器，服务器只会记录您的分数"
     }
     questionSet = null;
-    currentAnswer = 0;
+    currentAnswer = 0;   //index of questions array
+
     state = {
-        currentQuestion: 0,
+        currentQuestion: haveNotStarted,
         currentAnswer: 0
     }
     listenSelfMark = (selfMark) => {
@@ -38,34 +51,75 @@ export default class MultipleControl extends React.Component {
     }
     finishQuestions = () => {
         //judge whether all questions are finished
-        if (this.state.currentQuestion === this.props.questionSet.questionsMount - 1) {
-            return "提交";
-        } else {
-            return "下一个问题";
+        switch (this.state.currentQuestion) {
+            case this.questionSet.questionsMount - 1:
+                return "提交";
+            case this.questionSet.questionsMount:
+                return "问卷已完成，您可关闭网页";
+            case haveNotStarted:
+                return "开始回答";
+            default:
+                return "下一个问题";
         }
     }
-    answerOrSubmit = () => {
-        //switch to next question or submit
-        this.questionSet.questions[this.state.currentQuestion].answerQuestion(this.state.currentAnswer);
-        if (this.state.currentQuestion === this.props.questionSet.questionsMount - 1) {
-            //waiting for achieve submit function
-            console.log(this.questionSet.generateMarkObject());
-        } else {
-            this.setState({currentQuestion: this.state.currentQuestion + 1});
+
+    switchSpecialPage = (nowPage) => {
+        switch (nowPage) {
+            case haveNotStarted:
+                return <HomePageOfQuestions getUsername={getUsername}/>;
+            case this.props.questionSet.questionsMount:
+                return <EndPageOfQuestions reportCard={this.reportCard}/>;
+            default:
+                return <Multiple selfMarkCallback={this.listenSelfMark}
+                                 question={this.questionSet.questions[this.state.currentQuestion]}/>
+        }
+    }
+
+    mainButtonOnClick = () => {
+        //switch home page and questions
+        switch (this.state.currentQuestion) {
+            case haveNotStarted:
+                //start answering
+                username = usernameNode.value;
+                if (!username) {
+                    alert("请输入您的姓名");
+                    return;
+                }
+                this.setState({currentQuestion: 0});
+                return;
+            case this.questionSet.questionsMount:
+                //finish answering
+                return;
+            case this.questionSet.questionsMount - 1:
+                //submit answer
+                this.questionSet.questions[this.state.currentQuestion].answerQuestion(this.state.currentAnswer);
+                this.reportCard = {
+                    username: username,
+                    marks: this.questionSet.generateMarkObject()
+                }
+                //waiting for achieve submit function
+                if (this.server.existence) {
+                    //waiting for achieve submit function
+                }
+                break;
+            default:
+                //next question
+                this.questionSet.questions[this.state.currentQuestion].answerQuestion(this.state.currentAnswer);
+                this.setState({currentQuestion: this.state.currentQuestion + 1});
+                break;
         }
     }
 
     render() {
         return (
             <div className="multipleController">
-                <Multiple selfMarkCallback={this.listenSelfMark}
-                          question={this.questionSet.questions[this.state.currentQuestion]}/>
+                {this.switchSpecialPage(this.state.currentQuestion)}
                 <div className={"pageController"}>
                     <Button variant="contained" size="large"
-                            onClick={this.answerOrSubmit}>{this.finishQuestions()}</Button>
+                            onClick={this.mainButtonOnClick}>{this.finishQuestions()}</Button>
                 </div>
-                <p className="questionPointer">一共{this.questionSet.questionsMount}个问题，这是第{this.state.currentQuestion + 1}个问题</p>
-                <p className="questionPointer">{this.privacyPolicy()}</p>
+                <p className="littleTips">一共{this.questionSet.questionsMount}个问题，这是第{this.state.currentQuestion + 1}个问题</p>
+                <p className="littleTips">{this.privacyPolicy()}</p>
             </div>
         )
     }
