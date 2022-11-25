@@ -88,6 +88,7 @@ export default class MultipleControl extends React.Component {
                 this.setState({currentQuestion: 0});
                 return;
             case this.questionSet.questionsMount:
+                alert("问卷已完成，您可关闭网页");
                 //finish answering
                 return;
             case this.questionSet.questionsMount - 1:
@@ -97,10 +98,8 @@ export default class MultipleControl extends React.Component {
                     username: username,
                     marks: this.questionSet.generateMarkObject()
                 }
-                //waiting for achieve submit function
-                if (this.server.existence) {
-                    //waiting for achieve submit function
-                }
+                this.setState({currentQuestion: this.state.currentQuestion + 1});
+                //waiting for achieve ajax
                 break;
             default:
                 //next question
@@ -112,7 +111,7 @@ export default class MultipleControl extends React.Component {
 
     render() {
         return (
-            <div className="multipleController">
+            <div className="multipleController center">
                 {this.switchSpecialPage(this.state.currentQuestion)}
                 <div className={"pageController"}>
                     <Button variant="contained" size="large"

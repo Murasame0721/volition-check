@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import MultipleControl from "./MultipleControl/MultipleControl";
 import questions from "./MultipleControl/getQuestions";

@@ -29,7 +29,7 @@ export default class questionsSet {
         const weightDimensions = this.weightDimensions;
         const markObject = {};
         for (let dimensionIndex = 0; dimensionIndex < this.dimension; dimensionIndex++) {
-            markObject[weightDimensions[dimensionIndex]] = finalMark[dimensionIndex];
+            markObject[weightDimensions[dimensionIndex]] = Math.round(finalMark[dimensionIndex]);
         }
         return markObject
     }
