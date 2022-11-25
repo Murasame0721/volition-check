@@ -2,6 +2,7 @@
 
 export default class questionsSet {
     questions = [];   //class:question
+    questionsMount = 0;
     weightDimensions = [];
     dimension = 0;
     minMark = [];
@@ -37,6 +38,7 @@ export default class questionsSet {
         this.questions = questions;
         this.weightDimensions = questions[0].weightDimensions;
         this.dimension = this.weightDimensions.length;
+        this.questionsMount = questions.length;
 
         for (let dimensionIndex = 0; dimensionIndex < this.dimension; dimensionIndex++) {
             this.minMark[dimensionIndex] = 0;

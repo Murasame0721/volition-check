@@ -6,8 +6,11 @@ import question from "../libs/question";
  * you can set this according to weightDimensionsExample and questionsListExample
  * */
 
-const weightDimensions = [];
-const questionsList = [];
+const weightDimensions = ["human", "robot"];
+const questionsList = [
+    new question("Are you a human?", weightDimensions, [1, 0]),
+    new question("Are you a robot?", weightDimensions, [0, 1]),
+];
 
 export default questionsList;
 

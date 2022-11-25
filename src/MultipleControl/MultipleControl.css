@@ -1,0 +1,25 @@
+.multipleController {
+    background-color: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90vw;
+    box-sizing: border-box;
+}
+
+.multipleController .pageController {
+    margin: 1.5em;
+}
+
+.multipleController .questionPointer {
+    margin: 0;
+    line-height: 2em;
+    font-size: small;
+    color: #666666;
+    text-align: center;
+}

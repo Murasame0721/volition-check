@@ -1,14 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import MultipleControl from "./MultipleControl/MultipleControl";
-
-let questions = [
-  "a very long question: fghujezhgijdsghfouqwdhfajoswcnipqodwbgbourwbdiousnapknx",
-  "a very long question2: fghujezhgijdsghfouqwdhfajoswcnipqodwbgbourwbdiousnapknx"
-]
+import questions from "./MultipleControl/getQuestions";
 
 function App() {
-  return (<MultipleControl questions={questions}/>);
+    return (<MultipleControl questionSet={questions}/>);
 }
 
 export default App;

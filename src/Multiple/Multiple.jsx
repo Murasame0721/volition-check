@@ -1,16 +1,23 @@
 import React from "react";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import {ToggleButtonGroup} from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import './multiple.css';
 
 export default class Multiple extends React.Component {
-    props = {
-        question: "question"
+    question = null;
+    selfMarkCallback = null;
+
+    constructor(props) {
+        super(props);
+        this.question = props.question;
+        this.selfMarkCallback = props.selfMarkCallback;
     }
+
     changeSelfMark = (event, newMark) => {
         this.setState({selfMark: newMark});
+        if (this.props.selfMarkCallback) {
+            this.props.selfMarkCallback(newMark);
+        }
     }
     state = {
         selfMark: 0
@@ -22,7 +29,7 @@ export default class Multiple extends React.Component {
                 <div className="question">
                     <p>以下描述是否符合你？</p>
                     <p className="describe">4为最符合，1为最不符合</p>
-                    <p>{this.props.question}</p>
+                    <p>{this.props.question.describe}</p>
                 </div>
                 <div className="selector">
                     <ToggleButtonGroup color="primary" value={this.state.selfMark} onChange={this.changeSelfMark}

@@ -12,7 +12,7 @@ export default class question {
         this.weightDimensions = weightDimensions;
         this.weight = weight;
         this.dimension = weightDimensions.length;
-        if (isReverse == "reverse") this.reverse = true;
+        if (isReverse === "reverse") this.reverse = true;
     }
 
     answerQuestion(answer) {
